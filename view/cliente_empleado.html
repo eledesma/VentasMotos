@@ -1,0 +1,130 @@
+{include="header"}
+
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation"><a href="{$fsc->url()}"<><span class="glyphicon glyphicon-refresh" aria-hidden="true"></a></li>
+    <li role="presentation" {if condition="!$fsc->editar"} class="active" {/if}><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Listar Clientes</a></li>
+    <li role="presentation" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Insertar Cliente</a></li>
+   {if condition="$fsc->editar"}
+    <li role="presentation"  class="active"><a href="#editar" aria-controls="editar" role="tab" data-toggle="tab">Editar Cliente</a></li>
+   {/if}
+ </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+      <br><div role="tabpanel"  class=" tab-pane {if condition="!$fsc->editar"} active {/if}"  id="home"><!--listado-->
+
+              <div class="table-responsive"><!--Listado-->
+                  <table class="table table-hover">
+                     <thead>
+                         <tr>
+                      <th class="text-center">Codigo</th>
+                      <th class="text-center">Nombre Cliente</th>
+                      <th class="text-center">Cédula</th>
+                      <th class="text-center">Teléfono</th>
+                      <th class="text-center">Correo</th>
+                         </tr>
+                     </thead>
+                      {loop="$fsc->listado"}
+                      <tr {if condition="$value->nombre==$fsc->user->nick"} class="bg-success" {else} class="bg-warning" {/if}>
+                          <td class="text-center">
+                              <a href="{$fsc->url()}&id={$value->id}">{$value->id}</a>
+                          </td>
+
+                          <td class="text-center">{$value->nombre}</td>
+                          <td class="text-center">{$value->cedula}</td>
+                          <td class="text-center">{$value->telefono}</td>
+                          <td class="text-center">{$value->correo}</td>
+                       </tr>
+                      {/loop}
+                      </table>
+
+              </div>
+
+      </div>
+      <div role="tabpanel" class="tab-pane" id="profile"><!--Nuevo Cliente-->
+          <form class="form" action="{$fsc->url()}" method="post" >
+            <div class="container">
+              <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Nombre Cliente:
+                      <input type="text" name="nombre" value="" class="form-control"  autocomplete="off" required/>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Cédula:
+                      <input type="number" name="cedula" value="" class="form-control"  autocomplete="off" required/>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Teléfono:
+                      <input type="number" name="telefono" value="" class="form-control"  autocomplete="off" required/>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Correo Electrónico:
+                      <input type="text" name="correo" value="" class="form-control"  autocomplete="off" required/>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                      <button class="btn btn-sm btn-primary" type="sutmit">
+                      <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                          &nbsp Guardar
+                      </button>
+                  </div>
+              </div>
+           </div>
+        </form>
+   </div>
+   {if condition="$fsc->editar"}<!--Editar Cliente-->
+   <div role="tabpanel" class="tab-pane active" id="editar">
+   <form class="form" action="{$fsc->url()}" method="post" >
+     <input type="hidden" name="id" value="{$fsc->editar->id}"/>
+             <div class="container">
+                 <h3>Editar Cliente:</h3>
+                 <div class="row">
+                     <div class="col-md-3">
+                       <div class="form-group">
+                         Nombre Cliente:
+                         <input type="text" name="nombre" value="{$fsc->editar->nombre}" class="form-control"  autocomplete="off" required/>
+                       </div>
+                     </div>
+                     <div class="col-md-3">
+                       <div class="form-group">
+                         Cédula:
+                         <input type="number" name="cedula" value="{$fsc->editar->cedula}" class="form-control"  autocomplete="off" required/>
+                       </div>
+                     </div>
+                     <div class="col-md-3">
+                       <div class="form-group">
+                         Teléfono:
+                         <input type="number" name="telefono" value="{$fsc->editar->telefono}" class="form-control"  autocomplete="off" required/>
+                       </div>
+                     </div>
+                     <div class="col-md-3">
+                       <div class="form-group">
+                         Correo Electrónico:
+                         <input type="text" name="correo" value="{$fsc->editar->correo}" class="form-control"  autocomplete="off" required/>
+                       </div>
+                     </div>
+                     <div class="text-right">
+                       <!-- <a href="{$fsc->url()}&delete={$fsc->editar->id}" class="btn btn-sm btn-danger">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                &nbsp Eliminar
+                            </a> -->
+                         <button class="btn btn-sm btn-primary" type="sutmit">
+                         <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                             &nbsp Actualizar
+                         </button>
+                     </div>
+                 </div>
+           </div>
+     </form>
+   </div>
+   {/if}
+{include="footer"}

@@ -1,0 +1,293 @@
+{include="header"}
+
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation"><a href="{$fsc->url()}"<><span class="glyphicon glyphicon-refresh" aria-hidden="true"></a></li>
+    <li role="presentation" {if condition="!$fsc->editar"} class="active" {/if}><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Consultar Facturas</a></li>
+    <li role="presentation" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Crear Factura</a></li>
+   {if condition="$fsc->editar"}
+    <li role="presentation"  class="active"><a href="#editar" aria-controls="editar" role="tab" data-toggle="tab">Editar Factura</a></li>
+   {/if}
+ </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+      <br><div role="tabpanel"  class=" tab-pane {if condition="!$fsc->editar"} active {/if}"  id="home"><!--listado-->
+
+              <div class="table-responsive"><!--Listado-->
+                  <table class="table table-hover">
+                     <thead>
+                         <tr>
+                      <th class="text-center">Codigo</th>
+                      <th class="text-center">Fecha Compra</th>
+                      <th class="text-center">Empresa</th>
+                      <th class="text-center">Empleado</th>
+                      <th class="text-center">Cliente</th>
+                      <th class="text-center">Producto</th>
+                      <th class="text-center">Cantidad</th>
+                      <th class="text-center">Garantía</th>
+                      <th class="text-center">Valor Total</th>
+                      <th class="text-center">Forma de Pago</th>
+                      <th class="text-center">Crédito</th>
+                         </tr>
+                     </thead>
+                      {loop="$fsc->listado"}
+                      <tr {if condition="$value->empleado==$fsc->user->nick"} class="bg-success" {else} class="bg-warning" {/if}>
+                          <td class="text-center">
+                              <a href="{$fsc->url()}&id={$value->id}">{$value->id}</a>
+                          </td>
+
+                          <td class="text-center">{$value->fecha}</td>
+                          <td class="text-center">{$value->empresa}</td>
+                          <td class="text-center">{$value->empleado}</td>
+                          <td class="text-center">{$value->cliente}</td>
+                          <td class="text-center">{$value->producto}</td>
+                          <td class="text-center">{$value->cantidad}</td>
+                          <td class="text-center">{$value->garantia}</td>
+                          <td class="text-center">{$value->total}</td>
+                          <td class="text-center">{$value->pago}</td>
+                          <td class="text-center">{$value->credito}</td>
+                       </tr>
+                      {/loop}
+                      </table>
+
+              </div>
+
+      </div>
+      <div role="tabpanel" class="tab-pane" id="profile"><!--Nueva Factura-->
+          <form class="form" action="{$fsc->url()}" method="post" >
+            <div class="container">
+              <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Fecha Compra:
+                      <input type="date" name="fecha" value="" class="form-control"  autocomplete="off" required/>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Empresa:
+                      <select name="empresa" class="form-control" required>
+                          <option value="">Seleccionar Empresa</option>
+                          <option value="">---------</option>
+                          {loop="$fsc->consulta1"}
+                          <option> {$value['nombre']}</option>
+                          {/loop}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Empleado:
+                      <select name="empleado" class="form-control" required>
+                          <option value="">Seleccionar Empleado</option>
+                          <option value="">---------</option>
+                          {loop="$fsc->consulta2"}
+                          <option> {$value['nick']}</option>
+                          {/loop}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Cliente:
+                      <select name="cliente" class="form-control" required>
+                          <option value="">Seleccionar Cliente</option>
+                          <option value="">---------</option>
+                          {loop="$fsc->consulta3"}
+                          <option> {$value['nombre']}</option>
+                          {/loop}
+                      </select>
+                    </div>
+                  </div>
+              </div>
+               <div class="row">
+                 <div class="col-md-3">
+                   <div class="form-group">
+                     Producto:
+                     <select name="producto" class="form-control" required>
+                         <option value="">Seleccionar Producto</option>
+                         <option value="">---------</option>
+                         {loop="$fsc->consulta4"}
+                         <option> {$value['nombre']}</option>
+                         {/loop}
+                     </select>
+                   </div>
+                 </div>
+                 <div class="col-md-3">
+                   <div class="form-group">
+                     Cantidad:
+                     <input type="number" name="cantidad" value="" class="form-control"  autocomplete="off" required/>
+                   </div>
+                 </div>
+                 <div class="col-md-3">
+                   <div class="form-group">
+                     Tiempo Garantía:
+                     <input type="text" name="garantia" value="" class="form-control"  autocomplete="off" required/>
+                   </div>
+                 </div>
+                 <div class="col-md-3">
+                   <div class="form-group">
+                     Valor Total:
+                     <input type="number" name="total" value="" class="form-control"  autocomplete="off" required/>
+                   </div>
+                 </div>
+               </div>
+              <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      Forma de Pago:
+                      <input type="text" name="pago" value="" class="form-control"  autocomplete="off" required/>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    Codigo Crédito:
+                      <select name="credito" class="form-control" required>
+                          <option value="">Seleccionar Crédito</option>
+                          <option value="">---------</option>
+                          <option value="Ninguno">Ninguno</option>
+                          {loop="$fsc->consulta5"}
+                          <option> {$value['id']}</option>
+                          {/loop}
+                        </select>
+                   </div>
+               </div>
+                <div class="row">
+                  <div class="text-right">
+                      <button class="btn btn-sm btn-primary" type="sutmit">
+                      <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                          &nbsp Guardar
+                      </button>
+                      <button class="btn btn-sm btn-success" type="sutmit" name="imprimir" value="Imprimir" onclick="window.print();">
+                      <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                          &nbsp Imprimir
+                      </button>
+                  </div>
+                </div>
+           </div>
+        </form>
+   </div>
+   {if condition="$fsc->editar"}<!--Editar factura-->
+   <div role="tabpanel" class="tab-pane active" id="editar">
+   <form class="form" action="{$fsc->url()}" method="post" >
+     <input type="hidden" name="id" value="{$fsc->editar->id}"/>
+             <div class="container">
+                 <h3>Editar Factura:</h3>
+                 <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        Fecha Compra:
+                        <input type="date" name="fecha" value="{$fsc->editar->fecha}" class="form-control"  autocomplete="off" required/>
+                      </div>
+                     </div>
+                     <div class="col-md-3">
+                       <div class="form-group">
+                         Empresa:
+                          <select name="empresa" class="form-control" required>
+                           <option value="{$fsc->editar->empresa}">{$fsc->editar->empresa}</option>
+                           <option value="">---------</option>
+                           {loop="$fsc->consulta1"}
+                           <option {if condition="$value->nombre==$fsc->editar->empresa"} selected="selected"{/if}>{$value['nombre']}</option>
+                           {/loop}
+                          </select>
+                       </div>
+                     </div>
+                     <div class="col-md-3">
+                       <div class="form-group">
+                         Empleado:
+                          <select name="empleado" class="form-control" required>
+                           <option value="{$fsc->editar->empleado}">{$fsc->editar->empleado}</option>
+                           <option value="">---------</option>
+                           {loop="$fsc->consulta2"}
+                           <option {if condition="$value->nick==$fsc->editar->empleado"} selected="selected"{/if}>{$value['nick']}</option>
+                           {/loop}
+                          </select>
+                       </div>
+                     </div>
+                     <div class="col-md-3">
+                       <div class="form-group">
+                         Cliente:
+                          <select name="cliente" class="form-control" required>
+                           <option value="{$fsc->editar->cliente}">{$fsc->editar->cliente}</option>
+                           <option value="">---------</option>
+                           {loop="$fsc->consulta3"}
+                           <option {if condition="$value->nombre==$fsc->editar->cliente"} selected="selected"{/if}>{$value['nombre']}</option>
+                           {/loop}
+                          </select>
+                       </div>
+                     </div>
+                 </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        Producto:
+                         <select name="producto" class="form-control" required>
+                          <option value="{$fsc->editar->producto}">{$fsc->editar->producto}</option>
+                          <option value="">---------</option>
+                          {loop="$fsc->consulta4"}
+                          <option {if condition="$value->nombre==$fsc->editar->producto"} selected="selected"{/if}>{$value['nombre']}</option>
+                          {/loop}
+                         </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        Cantidad:
+                        <input type="number" name="cantidad" value="{$fsc->editar->cantidad}" class="form-control"  autocomplete="off" required/>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        Tiempo Garantía:
+                        <input type="text" name="garantia" value="{$fsc->editar->garantia}" class="form-control"  autocomplete="off" required/>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        Valor Total:
+                        <input type="number" name="total" value="{$fsc->editar->total}" class="form-control"  autocomplete="off" required/>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                       Forma de Pago:
+                       <input type="text" name="pago" value="{$fsc->editar->pago}" class="form-control"  autocomplete="off" required/>
+                     </div>
+                    </div>
+                     <div class="col-md-3">
+                      <div class="form-group">
+                        Codigo Crédito:
+                         <select name="credito" class="form-control" required>
+                          <option value="{$fsc->editar->credito}">{$fsc->editar->credito}</option>
+                          <option value="">---------</option>
+                          <option value="Ninguno">Ninguno</option>
+                          {loop="$fsc->consulta5"}
+                          <option {if condition="$value->id==$fsc->editar->credito"} selected="selected"{/if}>{$value['id']}</option>
+                          {/loop}
+                         </select>
+                      </div>
+                    </div>
+                    </div>
+                     <div class="row">
+                    <div class="text-right">
+                      <!-- <a href="{$fsc->url()}&delete={$fsc->editar->id}" class="btn btn-sm btn-danger">
+                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                               &nbsp Eliminar
+                           </a> -->
+                        <button class="btn btn-sm btn-primary" type="sutmit">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                            &nbsp Actualizar
+                        </button>
+                        <button class="btn btn-sm btn-success" type="sutmit" name="imprimir" value="Imprimir" onclick="window.print();">
+                        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                            &nbsp Imprimir
+                        </button>
+                    </div>
+             </div>
+       </div>
+     </form>
+   </div>
+   {/if}
+{include="footer"}

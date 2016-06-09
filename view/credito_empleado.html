@@ -1,0 +1,163 @@
+{include="header"}
+
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation"><a href="{$fsc->url()}"<><span class="glyphicon glyphicon-refresh" aria-hidden="true"></a></li>
+    <li role="presentation" {if condition="!$fsc->editar"} class="active" {/if}><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Listar Créditos</a></li>
+    <li role="presentation" ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Crear Crédito</a></li>
+   {if condition="$fsc->editar"}
+    <li role="presentation"  class="active"><a href="#editar" aria-controls="editar" role="tab" data-toggle="tab">Editar Crédito</a></li>
+   {/if}
+ </ul><br>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+      <div role="tabpanel"  class=" tab-pane {if condition="!$fsc->editar"} active {/if}"  id="home"><!--listado-->
+
+              <div class="table-responsive"><!--Listado-->
+                  <table class="table table-hover">
+                     <thead>
+                         <tr>
+                           <th class="text-center">Codigo</th>
+                           <th class="text-center">Tipo Financiación</th>
+                           <th class="text-center">Tiempo</th>
+                           <th class="text-center">Valor Crédito</th>
+                           <th class="text-center">Cantidad Cuotas</th>
+                           <th class="text-center">Valor Cuotas Mensual</th>
+                         </tr>
+                     </thead>
+                      {loop="$fsc->listado"}
+                      <tr {if condition="$value->financiar==$fsc->user->nick"} class="bg-success" {else} class="bg-warning" {/if}>
+                          <td class="text-center">
+                              <a href="{$fsc->url()}&id={$value->id}">{$value->id}</a>
+                          {if condition="$value->completado"}
+                          <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                          {/if}
+                          </td>
+
+                          <td class="text-center">{$value->financiar}</td>
+                          <td class="text-center">{$value->tiempo}</td>
+                          <td class="text-center">{$value->valor}</td>
+                          <td class="text-center">{$value->cuotas}</td>
+                          <td class="text-center">{$value->valorcuotas}</td>
+                       </tr>
+                      {/loop}
+                      </table>
+
+              </div>
+
+      </div>
+      <div role="tabpanel" class="tab-pane" id="profile"><!--Nuevo Credito-->
+          <form class="form" action="{$fsc->url()}" method="post" >
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-4">
+                  <div class="form-group">
+                      Tipo Crédito:
+                      <input type="text" name="financiar" value="" class="form-control"  autocomplete="off" required/>
+                  </div>
+                  </div>
+                   <div class="col-md-4">
+                  <div class="form-group">
+                      Tiempo Financiación:
+                        <input type="text" name="tiempo" value="" class="form-control"  autocomplete="off" required/>
+                  </div>
+                  </div>
+                  <div class="col-md-4">
+                 <div class="form-group">
+                     Valor Crédito:
+                      <input type="number" name="valor" value="" class="form-control"  autocomplete="off" required/>
+                 </div>
+                 </div>
+              </div>
+               <div class="row">
+                  <div class="col-md-4">
+                  <div class="form-group">
+                      Cantidad Cuotas a Cancelar:
+                      <input type="number" name="cuotas" value="" class="form-control" autocomplete="off" required/>
+                  </div>
+                  </div>
+                  <div class="col-md-4">
+                  <div class="form-group">
+                      Valor Mensual de Cuotas:
+                      <input type="number" name="valorcuotas" value="" class="form-control" autocomplete="off" required/>
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+                      <div class="text-right">
+                          <button class="btn btn-sm btn-primary" type="sutmit">
+                          <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                              &nbsp Guardar
+                          </button>
+                      </div>
+                 </div>
+          </form>
+       </div>
+   </div>
+   {if condition="$fsc->editar"}<!--editar credito-->
+   <div role="tabpanel" class="tab-pane active" id="editar">
+   <form class="form" action="{$fsc->url()}" method="post" >
+    <input type="hidden" name="id" value="{$fsc->editar->id}"/>
+             <div class="container">
+                 <h3>Editar Crédito:</h3>
+                 <div class="row">
+                     <div class="col-md-4">
+                     <div class="form-group">
+                         Tipo Crédito:
+                         <input type="text" name="financiar" value="{$fsc->editar->financiar}" class="form-control"  autocomplete="off" required/>
+                    </div>
+                     </div>
+                     <div class="col-md-4">
+                       <div class="form-group">
+                         Tiempo Financiación:
+                         <input type="text" name="tiempo" value="{$fsc->editar->tiempo}" class="form-control"  autocomplete="off" required/>
+                       </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        Valor Crédito:
+                        <input type="number" name="valor" value="{$fsc->editar->valor}" class="form-control"  autocomplete="off" required/>
+                      </div>
+                   </div>
+                 </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        Cantidad Cuotas a Cancelar:
+                       <input type="text" name="cuotas" value="{$fsc->editar->cuotas}" class="form-control" required/>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        Valor Mensual de Cuotas:
+                          <input type="number" name="valorcuotas" value="{$fsc->editar->valorcuotas}" class="form-control" required/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="completado" value="TRUE" {if condition="$fsc->editar->completado"} checked="checked"{/if}></input>
+                            Crédito Terminado
+                        </label>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <!-- <a href="{$fsc->url()}&delete={$fsc->editar->id}" class="btn btn-sm btn-danger">
+                               <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                               &nbsp Eliminar
+                           </a> -->
+                        <button class="btn btn-sm btn-primary" type="sutmit">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                            &nbsp Actualizar
+                        </button>
+                    </div>
+             </div>
+       </div>
+     </form>
+   </div>
+   {/if}
+{include="footer"}
