@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : agenda.xml
+    Description:
+        Estructura de la tabla agenda.
+-->
+<tabla>
+<columna>
+  <nombre>id</nombre>
+  <tipo>serial</tipo>
+  <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>nombre</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>cedula</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>telefono</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>correo</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<restriccion>
+        <nombre>clientes_pkey</nombre>
+        <consulta>PRIMARY KEY (id)</consulta>
+</restriccion>
+
+</tabla>

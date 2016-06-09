@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : agenda.xml
+    Description:
+        Estructura de la tabla agenda.
+-->
+<tabla>
+<columna>
+  <nombre>id</nombre>
+  <tipo>serial</tipo>
+  <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>nombre</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>modelo</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>color</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>marca</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>cilindraje</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>cantidad</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>valor</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>categoria</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<restriccion>
+        <nombre>productos_pkey</nombre>
+        <consulta>PRIMARY KEY (id)</consulta>
+</restriccion>
+
+</tabla>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : agenda.xml
+    Description:
+        Estructura de la tabla factura.
+-->
+<tabla>
+<columna>
+  <nombre>id</nombre>
+  <tipo>serial</tipo>
+  <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>fecha</nombre>
+    <tipo>date</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>empresa</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>empleado</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>cliente</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>producto</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>cantidad</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>garantia</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>total</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>pago</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<columna>
+    <nombre>credito</nombre>
+    <tipo>varchar(50)</tipo>
+    <nulo>YES</nulo>
+</columna>
+<restriccion>
+        <nombre>zfacturas_pkey</nombre>
+        <consulta>PRIMARY KEY (id)</consulta>
+</restriccion>
+
+</tabla>
